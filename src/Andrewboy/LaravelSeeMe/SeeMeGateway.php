@@ -42,6 +42,7 @@ class SeeMeGateway
     protected $apiUrl = 'https://seeme.hu/gateway';
     protected $logFileDestination = false;
     protected $format;
+    protected $log = '';
 
     #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     #xx DO NOT EDIT CODE UNDER THIS LINE
@@ -282,7 +283,7 @@ class SeeMeGateway
 
     /**
      * Set IP
-     * @param $ip
+     * @param string $ip
      * @return array
      * @throws SeeMeGatewayException
      */
@@ -348,7 +349,9 @@ class SeeMeGateway
         }
 
         $this->result = $resultparts;
-        $this->logToFile($resultparts);
+//        $this->logToFile($resultparts);
+        $this->log += $resultparts;
+        $this->logToFile($this->log);
 
         switch (@$resultparts['result']) {
             case 'OK':
@@ -390,9 +393,8 @@ class SeeMeGateway
         $params['apiVersion'] = $this->version; // SeeMe GW api version
         $apiUrl = $this->apiUrl . '?' . http_build_query($params, '', '&');
 
-        $this->logToFile("----------------------------");
-
-        $this->logToFile($this->method . ': ' . $apiUrl);
+        $this->log = PHP_EOL . '----------------------------' . PHP_EOL
+            . $this->method . ': ' . $apiUrl;
 
         switch (trim($this->method)) {
             case 'file_get_contents':
@@ -487,6 +489,14 @@ class SeeMeGateway
         $checksum = substr($hash, -$this->checksumLength);
 
         return substr(md5($key), 0, $this->checksumLength) == $checksum;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLog()
+    {
+        return $this->log;
     }
 
     /**

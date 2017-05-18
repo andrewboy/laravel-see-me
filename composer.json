@@ -1,7 +1,7 @@
 {
   "name": "andrewboy/laravel-see-me",
-  "description": "Laravel package for see me SMS sender.",
-  "keywords": ["laravel", "google", "see me", "sms", "sms sender"],
+  "description": "Laravel package for SeeMe SMS sender.",
+  "keywords": ["laravel", "see me", "sms", "sms sender", "seeme"],
   "authors": [
     {
       "name": "Beck András",
@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": ">=5.5.9",
-    "illuminate/support": ">5.0"
+    "illuminate/support": ">5.0",
+    "andrewboy/see-me-gateway": "dev-master@dev"
   },
   "require-dev": {
     "laravel/laravel": "5.1.*",
