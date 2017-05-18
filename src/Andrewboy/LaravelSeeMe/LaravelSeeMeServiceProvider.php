@@ -20,7 +20,7 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(SeeMeGateway::class, function ($app) {
+        $this->app->singleton(SeeMe::class, function ($app) {
             $apiKey = $app['config']['services.seeme.key'];
             $logToFile = !is_null($app['config']['seeme.log_to_file'])
                 ? $app['config']['seeme.log_to_file']
@@ -32,10 +32,11 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
                 ? $app['config']['seeme.method']
                 : SeeMeGateway::METHOD_CURL;
 
-            $seeme = new SeeMeGateway($apiKey, $logToFile, $format, $method);
+            $seeme = new SeeMe($apiKey, $logToFile, $format, $method);
 
-            if ($app->bound('Psr\Log\LoggerInterface')) {
-                $seeme->setLogger($app->make('Psr\Log\LoggerInterface'));
+
+            if ($app->bound(\Psr\Log\LoggerInterface::class)) {
+                $seeme->setLogger($app->make(\Psr\Log\LoggerInterface::class));
             }
 
             return $seeme;
@@ -49,7 +50,7 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [SeeMeGateway::class];
+        return [SeeMe::class];
     }
 
     /**

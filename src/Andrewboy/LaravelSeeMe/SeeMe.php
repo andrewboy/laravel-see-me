@@ -110,7 +110,7 @@ class SeeMe
         );
 
         if ($this->logToFile) {
-            $this->logger->info($this->gateway->getResult());
+            $this->logger->info($this->gateway->getLog());
         }
 
         return $result;
