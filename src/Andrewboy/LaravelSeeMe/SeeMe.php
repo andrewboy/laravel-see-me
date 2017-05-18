@@ -109,7 +109,7 @@ class SeeMe
             $callbackURL
         );
 
-        if ($this->logToFile) {
+        if ($this->logToFile && $this->logger instanceof LoggerInterface) {
             $this->logger->info($this->gateway->getLog());
         }
 
