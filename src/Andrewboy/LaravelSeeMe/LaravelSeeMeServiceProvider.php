@@ -1,6 +1,7 @@
 <?php namespace Andrewboy\LaravelSeeMe;
 
 use Illuminate\Support\ServiceProvider;
+use Andrewboy\SeeMe\SeeMeGateway;
 
 class LaravelSeeMeServiceProvider extends ServiceProvider
 {
@@ -21,8 +22,8 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
     {
         $this->app->singleton(SeeMeGateway::class, function ($app) {
             $apiKey = $app['config']['services.seeme.key'];
-            $logFileDestination = !is_null($app['config']['seeme.log_file_destination'])
-                ? $app['config']['seeme.log_file_destination']
+            $logToFile = !is_null($app['config']['seeme.log_to_file'])
+                ? $app['config']['seeme.log_to_file']
                 : false;
             $format = !is_null($app['config']['seeme.format'])
                 ? $app['config']['seeme.format']
@@ -31,10 +32,7 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
                 ? $app['config']['seeme.method']
                 : SeeMeGateway::METHOD_CURL;
 
-//            dd($app['config']);
-//            dd($apiKey, $logFileDestination, $format, $method);
-
-            $seeme = new SeeMeGateway($apiKey, $logFileDestination, $format, $method);
+            $seeme = new SeeMeGateway($apiKey, $logToFile, $format, $method);
 
             if ($app->bound('Psr\Log\LoggerInterface')) {
                 $seeme->setLogger($app->make('Psr\Log\LoggerInterface'));

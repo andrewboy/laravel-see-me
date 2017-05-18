@@ -1,6 +1,6 @@
 <?php namespace Andrewboy\LaravelSeeMe;
 
-use Andrewboy\SeeMeGateway\SeeMeGateway;
+use Andrewboy\SeeMe\SeeMeGateway;
 use Psr\Log\LoggerInterface;
 
 class SeeMe
