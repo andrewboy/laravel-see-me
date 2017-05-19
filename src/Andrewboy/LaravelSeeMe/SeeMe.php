@@ -119,7 +119,7 @@ class SeeMe
 
     /**
      * Get result of the send
-     * @return string
+     * @return array
      */
     public function getResult()
     {
@@ -137,7 +137,7 @@ class SeeMe
 
     /**
      * Get log text
-     * @return mixed
+     * @return string
      */
     public function getLog()
     {
