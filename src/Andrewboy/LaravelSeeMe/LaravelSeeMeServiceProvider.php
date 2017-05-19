@@ -10,7 +10,7 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected $defer = false;
 
 
     /**
@@ -20,7 +20,11 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(SeeMe::class, function ($app) {
+        $this->mergeConfigFrom(
+            __DIR__.'/config/seeme.php', 'seeme'
+        );
+
+        $this->app->singleton('seeme', function ($app) {
             $apiKey = $app['config']['services.seeme.key'];
             $logToFile = !is_null($app['config']['seeme.log_to_file'])
                 ? $app['config']['seeme.log_to_file']
@@ -50,7 +54,7 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [SeeMe::class];
+        return ['seeme'];
     }
 
     /**
@@ -61,6 +65,6 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/config/seeme.php' => config_path('seeme.php'),
-        ]);
+        ], 'config');
     }
 }
