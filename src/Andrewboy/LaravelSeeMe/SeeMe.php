@@ -83,19 +83,20 @@ class SeeMe
     }
 
     /**
-     * Send message
-     * @param $number
-     * @param $message
-     * @param string $sender
-     * @param null $reference
-     * @param null $callbackParams
-     * @param null $callbackURL
+     * Send SMS message
+     *
+     * @param string $number
+     * @param string $message
+     * @param string|null $sender
+     * @param string|null $reference
+     * @param string|null $callbackParams
+     * @param string|null $callbackURL
      * @return array
      */
     public function sendSMS(
         $number,
         $message,
-        $sender = '',
+        $sender = null,
         $reference = null,
         $callbackParams = null,
         $callbackURL = null)
