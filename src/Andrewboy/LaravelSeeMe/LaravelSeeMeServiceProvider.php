@@ -24,7 +24,7 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
             __DIR__.'/config/seeme.php', 'seeme'
         );
 
-        $this->app->singleton('seeme', function ($app) {
+        $this->app->singleton(SeeMeGateway::class, function ($app) {
             $apiKey = $app['config']['services.seeme.key'];
             $logToFile = !is_null($app['config']['seeme.log_to_file'])
                 ? $app['config']['seeme.log_to_file']
@@ -54,7 +54,7 @@ class LaravelSeeMeServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['seeme'];
+        return [SeeMeGateway::class];
     }
 
     /**
