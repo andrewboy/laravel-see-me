@@ -76,6 +76,7 @@ class SeeMe
     /**
      * Set IP
      * @param string $ip
+     * @return array
      * @throws \Exception
      */
     public function setIp($ip)
