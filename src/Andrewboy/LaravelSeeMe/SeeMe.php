@@ -76,10 +76,21 @@ class SeeMe
     /**
      * Set IP
      * @param string $ip
+     * @throws \Exception
      */
     public function setIp($ip)
     {
-        $this->gateway->setIP($ip);
+        try {
+            $result = $this->gateway->setIP($ip);
+        } catch (\Exception $e) {
+            throw $e;
+        } finally {
+            if ($this->logToFile && $this->logger instanceof LoggerInterface) {
+                $this->logger->info($this->gateway->getLog());
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -92,6 +103,7 @@ class SeeMe
      * @param string|null $callbackParams
      * @param string|null $callbackURL
      * @return array
+     * @throws \Exception
      */
     public function sendSMS(
         $number,
@@ -101,17 +113,21 @@ class SeeMe
         $callbackParams = null,
         $callbackURL = null)
     {
-        $result = $this->gateway->sendSMS(
-            $number,
-            $message,
-            $sender,
-            $reference,
-            $callbackParams,
-            $callbackURL
-        );
-
-        if ($this->logToFile && $this->logger instanceof LoggerInterface) {
-            $this->logger->info($this->gateway->getLog());
+        try {
+            $result = $this->gateway->sendSMS(
+                $number,
+                $message,
+                $sender,
+                $reference,
+                $callbackParams,
+                $callbackURL
+            );
+        } catch (\Exception $e) {
+            throw $e;
+        } finally {
+            if ($this->logToFile && $this->logger instanceof LoggerInterface) {
+                $this->logger->info($this->gateway->getLog());
+            }
         }
 
         return $result;
@@ -129,10 +145,21 @@ class SeeMe
     /**
      * Get balance
      * @return array
+     * @throws \Exception
      */
     public function getBalance()
     {
-        return $this->gateway->getBalance();
+        try {
+            $result = $this->gateway->getBalance();
+        } catch (\Exception $e) {
+            throw $e;
+        } finally {
+            if ($this->logToFile && $this->logger instanceof LoggerInterface) {
+                $this->logger->info($this->gateway->getLog());
+            }
+        }
+
+        return $result;
     }
 
     /**
