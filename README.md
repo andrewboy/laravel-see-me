@@ -52,9 +52,9 @@ return [
     * default: 'curl'
     
 * *log_to_file:*
-     type: boolean
-     required: false
-     default: false
+    * type: boolean
+    * required: false
+    * default: false
      
 ##SeeMe class
      
