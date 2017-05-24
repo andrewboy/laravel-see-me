@@ -56,7 +56,7 @@ return [
     * required: false
     * default: false
      
-##SeeMe class
+## SeeMe class
      
 ### Format types
 
